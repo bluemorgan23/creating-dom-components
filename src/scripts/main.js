@@ -87,29 +87,29 @@ const container = document.querySelector("#container");
 
 //Functions that build sub-components (h1, section, aside) of the larger student component 
 
-const h1 = (studentObj) => {
-    if (studentObj.score >= 60) {
-        return `<h1 class="xx-large passing">${studentObj.name}</h1>`;
-    } else {
-        return `<h1 class="xx-large failing">${studentObj.name}</h1>`;
-    }
-}
-const section = (studentObj) => {
-    return `<section class="bordered dashed section--padded">${studentObj.subject}</section>`;
-}
+// const h1 = (studentObj) => {
+//     if (studentObj.score >= 60) {
+//         return `<h1 class="xx-large passing">${studentObj.name}</h1>`;
+//     } else {
+//         return `<h1 class="xx-large failing">${studentObj.name}</h1>`;
+//     }
+// }
+// const section = (studentObj) => {
+//     return `<section class="bordered dashed section--padded">${studentObj.subject}</section>`;
+// }
 
-const aside = (studentObj) => {
-    return `<aside class="pushRight">${studentObj.info}</aside>`
-}
+// const aside = (studentObj) => {
+//     return `<aside class="pushRight">${studentObj.info}</aside>`
+// }
 
-const createStudentComponent = (studentObj) => `
-    <div id="student">
-        ${h1(studentObj)}
-        ${section(studentObj)}
-        ${aside(studentObj)}
-    </div>
-`;
-
+// const createStudentComponent = (studentObj) => {`
+//     <div id="student">
+//         ${h1(studentObj)}
+//         ${section(studentObj)}
+//         ${aside(studentObj)}
+//     </div>
+// `;
+// }
 
 // New function that accepts the object as one parameter, changed the function to add class instead of the for loop
 // const createStudentComponent = (studentObj) => {
@@ -132,6 +132,35 @@ const createStudentComponent = (studentObj) => `
 //     `;
 //     }
 // }
+
+// New element function that creates any html component, with any content
+
+const element = (type, content, classValue) => {
+    return `<${type} class="${classValue}">${content}</${type}>`;
+
+}
+
+
+
+const createStudentComponent = (student) => {
+    if (student.score >= 60) {
+        return `
+        <div id="student">
+            ${element("h1", student.name, "xx-large passing")}
+            ${element("section", student.subject, "bordered dashed section--padded")}
+            ${element("aside", student.info, "pushRight")}
+        </div>
+        `
+    } else {
+        return `
+        <div id="student">
+            ${element("h1", student.name, "xx-large failing")}
+            ${element("section", student.subject, "bordered dashed section--padded")}
+            ${element("aside", student.info, "pushRight")}
+        </div>
+        `
+    }
+}
 
 for (let i = 0; i < students.length; i++) {
     container.innerHTML += createStudentComponent(students[i]);
