@@ -85,27 +85,53 @@ const container = document.querySelector("#container");
 //     `;
 // }
 
-// New function that accepts the object as one parameter, changed the function to add class instead of the for loop
-const createStudentComponent = (studentObj) => {
+//Functions that build sub-components (h1, section, aside) of the larger student component 
 
+const h1 = (studentObj) => {
     if (studentObj.score >= 60) {
-        return `
-    <div class="student">
-        <h1 class="xx-large passing">${studentObj.name}</h1>
-        <section class="bordered dashed section--padded">${studentObj.subject}</section>
-        <aside class="pushRight">${studentObj.info}</aside>
-    </div>
-    `;
+        return `<h1 class="xx-large passing">${studentObj.name}</h1>`;
     } else {
-        return `
-    <div class="student">
-        <h1 class="xx-large failing">${studentObj.name}</h1>
-        <section class="bordered dashed section--padded">${studentObj.subject}</section>
-        <aside class="pushRight">${studentObj.info}</aside>
-    </div>
-    `;
+        return `<h1 class="xx-large failing">${studentObj.name}</h1>`;
     }
 }
+const section = (studentObj) => {
+    return `<section class="bordered dashed section--padded">${studentObj.subject}</section>`;
+}
+
+const aside = (studentObj) => {
+    return `<aside class="pushRight">${studentObj.info}</aside>`
+}
+
+const createStudentComponent = (studentObj) => `
+    <div id="student">
+        ${h1(studentObj)}
+        ${section(studentObj)}
+        ${aside(studentObj)}
+    </div>
+`;
+
+
+// New function that accepts the object as one parameter, changed the function to add class instead of the for loop
+// const createStudentComponent = (studentObj) => {
+
+//     if (studentObj.score >= 60) {
+//         return `
+//     <div class="student">
+//         <h1 class="xx-large passing">${h1(studentObj)}</h1>
+//         <section class="bordered dashed section--padded">${section(studentObj)}</section>
+//         <aside class="pushRight">${aside(studentObj)}</aside>
+//     </div>
+//     `;
+//     } else {
+//         return `
+//     <div class="student">
+//         <h1 class="xx-large failing">${h1(studentObj)}</h1>
+//         <section class="bordered dashed section--padded">${section(studentObj)}</section>
+//         <aside class="pushRight">${aside(studentObj)}</aside>
+//     </div>
+//     `;
+//     }
+// }
 
 for (let i = 0; i < students.length; i++) {
     container.innerHTML += createStudentComponent(students[i]);
