@@ -1,5 +1,4 @@
-const students = [
-    {
+const students = [{
         name: "Chris Miller",
         subject: "History",
         info: "Failed last exam",
@@ -76,21 +75,38 @@ const students = [
 const container = document.querySelector("#container");
 // container.innerHTML = "<div class='student'><h1>Alejandro Font</h1><section>Day cohort 27</section><aside>Wore pants that were too short for his legs.Was an incredible friend to his teammates.</aside></div>";
 
-const createStudentComponent = (name, subject, info, className) => {
-    return  `
+// const createStudentComponent = (name, subject, info, className) => {
+//     return  `
+//     <div class="student">
+//         <h1 class="xx-large ${className}">${name}</h1>
+//         <section class="bordered dashed section--padded">${subject}</section>
+//         <aside class="pushRight">${info}</aside>
+//     </div>
+//     `;
+// }
+
+// New function that accepts the object as one parameter, changed the function to add class instead of the for loop
+const createStudentComponent = (studentObj) => {
+
+    if (studentObj.score >= 60) {
+        return `
     <div class="student">
-        <h1 class="xx-large ${className}">${name}</h1>
-        <section class="bordered dashed section--padded">${subject}</section>
-        <aside class="pushRight">${info}</aside>
+        <h1 class="xx-large passing">${studentObj.name}</h1>
+        <section class="bordered dashed section--padded">${studentObj.subject}</section>
+        <aside class="pushRight">${studentObj.info}</aside>
     </div>
     `;
+    } else {
+        return `
+    <div class="student">
+        <h1 class="xx-large failing">${studentObj.name}</h1>
+        <section class="bordered dashed section--padded">${studentObj.subject}</section>
+        <aside class="pushRight">${studentObj.info}</aside>
+    </div>
+    `;
+    }
 }
 
 for (let i = 0; i < students.length; i++) {
-   
-    if (students[i].score >= 60) {
-        container.innerHTML += createStudentComponent(students[i].name, students[i].subject, students[i].info, "passing");
-    } else {
-        container.innerHTML += createStudentComponent(students[i].name, students[i].subject, students[i].info, "failing");
-    }
+    container.innerHTML += createStudentComponent(students[i]);
 }
